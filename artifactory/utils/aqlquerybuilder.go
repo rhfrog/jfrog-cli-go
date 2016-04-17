@@ -113,16 +113,17 @@ func createPathFilePairs(pattern string, recursive bool) []PathFilePair {
 		return pairs
 	}
 
-	index := strings.LastIndex(pattern, "/")
+	slashIndex := strings.LastIndex(pattern, "/")
 	var path string
 	var name string
-	if index < 0 {
-		pairs = append(pairs, PathFilePair{defaultPath, pattern})
+	if slashIndex < 0 {
+		pairs = append(pairs, PathFilePair{".", pattern})
 		path = ""
 		name = pattern
-	} else {
-		path = pattern[0:index]
-		name = pattern[index+1:]
+	} else
+	if slashIndex >=0 {
+		path = pattern[0:slashIndex]
+		name = pattern[slashIndex+1:]
 		pairs = append(pairs, PathFilePair{path, name})
 	}
 	if !recursive {
@@ -137,11 +138,7 @@ func createPathFilePairs(pattern string, recursive bool) []PathFilePair {
 
 	sections := strings.Split(pattern, "*")
 	size := len(sections)
-
 	for i := 0; i < size; i++ {
-		if sections[i] == "" {
-			continue
-		}
 		options := []string{}
 		if i+1 < size {
 			options = append(options, sections[i]+"*/")
