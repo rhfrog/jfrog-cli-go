@@ -39,19 +39,19 @@ func getRtiSubCommands() []cli.Command {
 		{
 			Name:   "remove",
 			Flags:  getRemoveInstanceFlags(),
-			Usage:  "Delete an instance",
+			Usage:  "Remove an instance",
 			Action: removeInstance,
 		},
 		{
 			Name:   "attach-lic",
 			Flags:  getAttachLicenseFlags(),
-			Usage:  "Attach a license",
+			Usage:  "Attach license to an instance",
 			Action: attachLicense,
 		},
 		{
 			Name:   "detach-lic",
 			Flags:  getDetachLicenseFlags(),
-			Usage:  "Dettach a license",
+			Usage:  "Dettach license from an instance",
 			Action: detachLicense,
 		},
 	}
@@ -113,11 +113,11 @@ func getAttachLicenseFlags() []cli.Flag {
 	return append(getFlags(), []cli.Flag{
 		cli.StringFlag{
 			Name:  "license-path",
-			Usage: "[Optional] Full path for the license file save",
+			Usage: "[Optional] Full path to the license file",
 		},
 		cli.StringFlag{
 			Name:  "bucket-id",
-			Usage: "[Optional] license bucket id",
+			Usage: "[Optional] license bucket ID",
 		},
 		cli.StringFlag{
 			Name:  "bucket-key",
@@ -134,7 +134,7 @@ func getDetachLicenseFlags() []cli.Flag {
 	return append(getFlags(), []cli.Flag{
 		cli.StringFlag{
 			Name:  "bucket-id",
-			Usage: "[Optional] license bucket id",
+			Usage: "[Optional] license bucket ID",
 		},
 		cli.StringFlag{
 			Name:  "node-id",
