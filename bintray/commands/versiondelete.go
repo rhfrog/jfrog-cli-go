@@ -17,9 +17,9 @@ func DeleteVersion(versionDetails *utils.VersionDetails, bintrayDetails *config.
 
 	fmt.Println("Deleting version: " + versionDetails.Version)
 	httpClientsDetails := utils.GetBintrayHttpClientDetails(bintrayDetails)
-	resp, body := ioutils.SendDelete(url, httpClientsDetails)
+	resp, body := ioutils.SendDelete(url, nil, httpClientsDetails)
 	if resp.StatusCode != 200 {
-		cliutils.Exit(cliutils.ExitCodeError, resp.Status+". "+utils.ReadBintrayMessage(body))
+		cliutils.Exit(cliutils.ExitCodeError, resp.Status+". " + ioutils.ReadHttpMessage(body))
 	}
 	fmt.Println("Bintray response: " + resp.Status)
 }

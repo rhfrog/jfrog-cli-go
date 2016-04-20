@@ -8,11 +8,12 @@ import (
 	"os"
 	"strconv"
 	"strings"
-    "runtime"
+	"runtime"
 )
 
 const CmdArtifactory = "rt"
 const CmdBintray = "bt"
+const CmdMissionControl = "mc"
 
 var ExitCodeError ExitCode = ExitCode{1}
 var ExitCodeWarning ExitCode = ExitCode{2}
@@ -213,6 +214,13 @@ func MergeMaps(src map[string]string, dst map[string]string) {
 	for k, v := range src {
 		dst[k] = v
 	}
+}
+
+type Credentials interface {
+	SetUser(string)
+	SetPassword(string)
+	GetUser() string
+	GetPassword() string
 }
 
 type Artifact struct {

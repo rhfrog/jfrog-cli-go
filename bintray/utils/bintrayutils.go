@@ -1,7 +1,6 @@
 package utils
 
 import (
-	"encoding/json"
 	"fmt"
 	"github.com/jfrogdev/jfrog-cli-go/utils/cliutils"
 	"github.com/jfrogdev/jfrog-cli-go/utils/config"
@@ -81,15 +80,6 @@ func shouldDownloadFile(localFilePath string, remoteFileDetails *ioutils.FileDet
 	return false
 }
 
-func ReadBintrayMessage(resp []byte) string {
-	var response bintrayResponse
-	err := json.Unmarshal(resp, &response)
-	if err != nil {
-		return string(resp)
-	}
-	return response.Message
-}
-
 func CreateVersionDetails(versionStr string) *VersionDetails {
 	parts := strings.Split(versionStr, "/")
 	size := len(parts)
@@ -140,14 +130,10 @@ func CreatePathDetails(str string) *PathDetails {
 		Path:    path}
 }
 
-func GetBintrayHttpClientDetails (bintrayDetails *config.BintrayDetails) ioutils.HttpClientDetails{
+func GetBintrayHttpClientDetails (bintrayDetails *config.BintrayDetails) ioutils.HttpClientDetails {
 	return ioutils.HttpClientDetails{
 		User:     bintrayDetails.User,
 		Password: bintrayDetails.Key}
-}
-
-type bintrayResponse struct {
-	Message string
 }
 
 type FileDetails struct {

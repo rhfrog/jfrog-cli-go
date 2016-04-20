@@ -17,7 +17,7 @@ func LogsList(packageDetails *utils.VersionDetails, details *config.BintrayDetai
 	httpClientsDetails := utils.GetBintrayHttpClientDetails(details)
 	resp, body, _, _ := ioutils.SendGet(path, true, httpClientsDetails)
 	if resp.StatusCode != 200 {
-		cliutils.Exit(cliutils.ExitCodeError, resp.Status + ". " + utils.ReadBintrayMessage(body))
+		cliutils.Exit(cliutils.ExitCodeError, resp.Status + ". " + ioutils.ReadHttpMessage(body))
 	}
 
 	fmt.Println("Bintray response: " + resp.Status)

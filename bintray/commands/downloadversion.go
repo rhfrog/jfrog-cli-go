@@ -21,7 +21,7 @@ func DownloadVersion(versionDetails *utils.VersionDetails, flags *utils.Download
 	httpClientsDetails := utils.GetBintrayHttpClientDetails(flags.BintrayDetails)
 	resp, body, _, _ := ioutils.SendGet(path, true, httpClientsDetails)
 	if resp.StatusCode != 200 {
-		cliutils.Exit(cliutils.ExitCodeError, resp.Status+". "+utils.ReadBintrayMessage(body))
+		cliutils.Exit(cliutils.ExitCodeError, resp.Status+". " + ioutils.ReadHttpMessage(body))
 	}
 	var results []VersionFilesResult
 	err := json.Unmarshal(body, &results)

@@ -19,7 +19,7 @@ func UpdateVersion(versionDetails *utils.VersionDetails, flags *utils.VersionFla
 	httpClientsDetails := utils.GetBintrayHttpClientDetails(flags.BintrayDetails)
 	resp, body := ioutils.SendPatch(url, []byte(data), httpClientsDetails)
 	if resp.StatusCode != 200 {
-		cliutils.Exit(cliutils.ExitCodeError, resp.Status+". "+utils.ReadBintrayMessage(body))
+		cliutils.Exit(cliutils.ExitCodeError, resp.Status+". " + ioutils.ReadHttpMessage(body))
 	}
 	fmt.Println("Bintray response: " + resp.Status)
 	fmt.Println(cliutils.IndentJson(body))

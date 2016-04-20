@@ -19,6 +19,9 @@ import (
 	"strings"
 	"sync"
 	"github.com/jfrogdev/jfrog-cli-go/utils/cliutils"
+	"github.com/jfrogdev/jfrog-cli-go/Godeps/_workspace/src/golang.org/x/crypto/ssh/terminal"
+	"syscall"
+	"encoding/json"
 )
 
 var tempDirPath string
@@ -122,8 +125,8 @@ func SendPatch(url string, content []byte, httpClientsDetails HttpClientDetails)
 	return resp, body
 }
 
-func SendDelete(url string, httpClientsDetails HttpClientDetails) (*http.Response, []byte) {
-	resp, body, _, err := Send("DELETE", url, nil, true, true, httpClientsDetails)
+func SendDelete(url string, content []byte, httpClientsDetails HttpClientDetails) (*http.Response, []byte) {
+	resp, body, _, err := Send("DELETE", url, content, true, true, httpClientsDetails)
 	cliutils.CheckError(err)
 	return resp, body
 }
@@ -462,6 +465,23 @@ func calcMd5(filePath string) string {
 	return hex.EncodeToString(hashMd5.Sum(resMd5))
 }
 
+func ReadCredentialsFromConsole(details, savedDetails cliutils.Credentials) {
+	if details.GetUser() == "" {
+		tempUser := ""
+		ScanFromConsole("User", &tempUser, savedDetails.GetUser())
+		details.SetUser(tempUser)
+	}
+	if details.GetPassword() == "" {
+		print("Password: ")
+		bytePassword, err := terminal.ReadPassword(int(syscall.Stdin))
+		cliutils.CheckError(err)
+		details.SetPassword(string(bytePassword))
+		if details.GetPassword() == "" {
+			details.SetPassword(savedDetails.GetPassword())
+		}
+	}
+}
+
 type ConcurrentDownloadFlags struct {
 	DownloadPath string
 	FileName     string
@@ -476,5 +496,18 @@ type FileDetails struct {
 	Sha1         string
 	Size         int64
 	AcceptRanges bool
+}
+
+type HttpResponse struct {
+	Message string
+}
+
+func ReadHttpMessage(resp []byte) string {
+	var response HttpResponse
+	err := json.Unmarshal(resp, &response)
+	if err != nil {
+		return string(resp)
+	}
+	return response.Message
 }
 

@@ -25,7 +25,7 @@ func ShowEntitlements(bintrayDetails *config.BintrayDetails, details *utils.Vers
 	httpClientsDetails := utils.GetBintrayHttpClientDetails(bintrayDetails)
 	resp, body, _, _ := ioutils.SendGet(url, true, httpClientsDetails)
 	if resp.StatusCode != 200 {
-		cliutils.Exit(cliutils.ExitCodeError, resp.Status+". "+utils.ReadBintrayMessage(body))
+		cliutils.Exit(cliutils.ExitCodeError, resp.Status+". " + ioutils.ReadHttpMessage(body))
 	}
 	fmt.Println("Bintray response: " + resp.Status)
 	fmt.Println(cliutils.IndentJson(body))
@@ -39,7 +39,7 @@ func ShowEntitlement(flags *EntitlementFlags, details *utils.VersionDetails) {
 	httpClientsDetails := utils.GetBintrayHttpClientDetails(flags.BintrayDetails)
 	resp, body, _, _ := ioutils.SendGet(url, true, httpClientsDetails)
 	if resp.StatusCode != 200 {
-		cliutils.Exit(cliutils.ExitCodeError, resp.Status+". "+utils.ReadBintrayMessage(body))
+		cliutils.Exit(cliutils.ExitCodeError, resp.Status+". " + ioutils.ReadHttpMessage(body))
 	}
 	fmt.Println("Bintray response: " + resp.Status)
 	fmt.Println(cliutils.IndentJson(body))
@@ -51,9 +51,9 @@ func DeleteEntitlement(flags *EntitlementFlags, details *utils.VersionDetails) {
 		flags.BintrayDetails.User = details.Subject
 	}
 	httpClientsDetails := utils.GetBintrayHttpClientDetails(flags.BintrayDetails)
-	resp, body := ioutils.SendDelete(url, httpClientsDetails)
+	resp, body := ioutils.SendDelete(url, nil, httpClientsDetails)
 	if resp.StatusCode != 200 {
-		cliutils.Exit(cliutils.ExitCodeError, resp.Status+". "+utils.ReadBintrayMessage(body))
+		cliutils.Exit(cliutils.ExitCodeError, resp.Status+". " + ioutils.ReadHttpMessage(body))
 	}
 	fmt.Println("Bintray response: " + resp.Status)
 }
@@ -68,7 +68,7 @@ func CreateEntitlement(flags *EntitlementFlags, details *utils.VersionDetails) {
 	httpClientsDetails := utils.GetBintrayHttpClientDetails(flags.BintrayDetails)
 	resp, body := ioutils.SendPost(path, []byte(data), httpClientsDetails)
 	if resp.StatusCode != 201 {
-		cliutils.Exit(cliutils.ExitCodeError, resp.Status+". "+utils.ReadBintrayMessage(body))
+		cliutils.Exit(cliutils.ExitCodeError, resp.Status+". " + ioutils.ReadHttpMessage(body))
 	}
 	fmt.Println("Bintray response: " + resp.Status)
 	fmt.Println(cliutils.IndentJson(body))
@@ -83,7 +83,7 @@ func UpdateEntitlement(flags *EntitlementFlags, details *utils.VersionDetails) {
 	httpClientsDetails := utils.GetBintrayHttpClientDetails(flags.BintrayDetails)
 	resp, body := ioutils.SendPatch(path, []byte(data), httpClientsDetails)
 	if resp.StatusCode != 200 {
-		cliutils.Exit(cliutils.ExitCodeError, resp.Status+". "+utils.ReadBintrayMessage(body))
+		cliutils.Exit(cliutils.ExitCodeError, resp.Status+". " + ioutils.ReadHttpMessage(body))
 	}
 	fmt.Println("Bintray response: " + resp.Status)
 	fmt.Println(cliutils.IndentJson(body))

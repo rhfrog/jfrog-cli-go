@@ -89,7 +89,7 @@ func PingArtifactory(artDetails *config.ArtifactoryDetails){
 	ioutils.SendGet(artDetails.Url, true, httpClientsDetails)
 }
 
-func GetArtifactoryHttpClientDetails (artifactoryDetails *config.ArtifactoryDetails) ioutils.HttpClientDetails{
+func GetArtifactoryHttpClientDetails(artifactoryDetails *config.ArtifactoryDetails) ioutils.HttpClientDetails {
 	return ioutils.HttpClientDetails{
 		User:      artifactoryDetails.User,
 		Password:  artifactoryDetails.Password,
