@@ -15,7 +15,7 @@ func GetMissionControlHttpClientDetails(missionControlDetails *config.MissionCon
 type LicenseRequestContent struct {
 	Name      string `json:"instanceName,omitempty"`
 	BucketKey string `json:"bucketKey,omitempty"`
-	NodeID 	  string `json:"nodeID,omitempty"`
+	NodeID 	  string `json:"nodeId,omitempty"`
 }
 
 type ArtifactoryInstanceDetails struct {
