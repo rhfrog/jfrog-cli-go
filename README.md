@@ -41,7 +41,7 @@ By default the tests are using the following settings:
 * passowrd: password
 * apikey: EMPTY
 
-Those settings can be customized by using the --url, --user, --password and --apikey flags while executing the go test.<br/>
+Those settings can be customized by using the --url, --user, --password and --apikey flags while executing the go test command.<br/>
 For example:
 ````
 $ go test -v github.com/jfrogdev/jfrog-cli-go/jfrog --url=http://yourArtifactoryUrl/artifactory --user=user --password=password --apikey=apikey
