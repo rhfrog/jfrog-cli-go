@@ -28,6 +28,29 @@ $ go get github.com/jfrogdev/jfrog-cli-go/...
 ````
 Go will download and build the project on your machine. Once complete, you will find the JFrog CLI executable under your `$GOPATH/bin` directory.
 
+### Integration tests
+In order to execute the tests, run the following commands:
+````
+$ cd jfrogdev/jfrog-cli-go/jfrog
+$ go test -v
+````
+
+By default the tests are using the following settings:
+
+* Artifactory url: http://localhost:8081/artifatory
+* user: admin
+* passowrd: password
+* apikey: EMPTY
+
+Those settings can be customized by using the --url, --user, --password and --apikey flags while executing the go test.<br/>
+For example:
+````
+$ go test -v --url=http://yourArtifactoryUrl/artifactory --user=user --password=password --apikey=apikey
+````
+* Running the tests will create two repositories: jfrog-cli-tests-repo and jfrog-cli-tests-repo1.<br/>
+  By the end of the tests the content of those repositories will be deleted.
+
+
 # Using JFrog CLI with Artifactory and Bintray
 JFrog CLI can be used for quick and easy file management with both Artifactory and Bintray, and has a dedicated set of commands for each product. To learn how to use JFrog CLI, please refer to the relevant documentation through the corresponding link below: 
 * [Using JFrog CLI with Artifactory](https://www.jfrog.com/confluence/display/RTF/JFrog+CLI)
