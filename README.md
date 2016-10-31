@@ -31,8 +31,7 @@ Go will download and build the project on your machine. Once complete, you will 
 ### Integration tests
 In order to execute the tests, run the following commands:
 ````
-$ cd $GOPATH/src/github.com/jfrogdev/jfrog-cli-go/jfrog
-$ go test -v
+$ go test -v github.com/jfrogdev/jfrog-cli-go/jfrog
 ````
 
 By default the tests are using the following settings:
@@ -45,7 +44,7 @@ By default the tests are using the following settings:
 Those settings can be customized by using the --url, --user, --password and --apikey flags while executing the go test.<br/>
 For example:
 ````
-$ go test -v --url=http://yourArtifactoryUrl/artifactory --user=user --password=password --apikey=apikey
+$ go test -v github.com/jfrogdev/jfrog-cli-go/jfrog --url=http://yourArtifactoryUrl/artifactory --user=user --password=password --apikey=apikey
 ````
 * Running the tests will create two repositories: jfrog-cli-tests-repo and jfrog-cli-tests-repo1.<br/>
   By the end of the tests the content of those repositories will be deleted.
