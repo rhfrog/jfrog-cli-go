@@ -31,7 +31,7 @@ Go will download and build the project on your machine. Once complete, you will 
 ### Integration tests
 In order to execute the tests, run the following commands:
 ````
-$ cd jfrogdev/jfrog-cli-go/jfrog
+$ cd $GOPATH/src/github.com/jfrogdev/jfrog-cli-go/jfrog
 $ go test -v
 ````
 
